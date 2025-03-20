@@ -133,7 +133,6 @@ const userProgressSchema = new Schema<IUserProgress>(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-      unique: true,
     },
     itemProgress: {
       type: [vocabItemProgressSchema],

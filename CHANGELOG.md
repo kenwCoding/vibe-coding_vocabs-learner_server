@@ -13,6 +13,12 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
+### 2024-03-24 09:30 AM
+- [Fix] Resolved Mongoose warning about duplicate schema index on {"user":1} in UserProgress model:
+  - Removed the redundant `unique: true` property from the user field definition
+  - Kept the explicit index definition using `userProgressSchema.index()`
+- [Performance] Eliminated schema index duplication to improve database efficiency
+
 ### 2024-03-24 08:45 AM
 - [Fix] Fixed property name issues in userProgressResolvers.ts:
   - Updated property names to match model definitions (proficiency → masteryLevel, reviewCount → correctAttempts)
