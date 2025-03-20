@@ -15,9 +15,20 @@ An intelligent platform for enhancing vocabulary learning through adaptive tests
 
 ## Live Demo
 
+### Frontend
 🚀 **Check out the live application**: [VocabMaster on Vercel](https://vibe-coding-vocabs-learner.vercel.app/)
 
 Experience the latest version of VocabMaster in action! The demo showcases the current UI components, authentication flow, and dashboard features.
+
+### Backend API
+🔌 **Production API Endpoint**: [https://vibe-coding-vocabs-learner-server.onrender.com/graphql](https://vibe-coding-vocabs-learner-server.onrender.com/graphql)
+
+The GraphQL API is deployed on Render and serves as the backend for the VocabMaster application. You can explore the API using the GraphQL playground at this endpoint.
+
+#### Health Check
+🩺 **API Health Check**: [https://vibe-coding-vocabs-learner-server.onrender.com/health](https://vibe-coding-vocabs-learner-server.onrender.com/health)
+
+Use this endpoint to verify the API's operational status. Returns basic health metrics and connection status.
 
 ## Tech Stack
 
@@ -43,6 +54,7 @@ Experience the latest version of VocabMaster in action! The demo showcases the c
 - **Deployment**:
   - Docker for containerization
   - Docker Compose for multi-container deployment
+  - Render for production API hosting
 
 ## System Architecture
 

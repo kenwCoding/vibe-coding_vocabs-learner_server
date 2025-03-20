@@ -33,6 +33,24 @@ async function startServer() {
   // Connect to MongoDB
   await connectDB();
 
+  // Add health check endpoint
+  app.get('/health', (req, res) => {
+    const healthcheck = {
+      uptime: process.uptime(),
+      message: 'OK',
+      timestamp: new Date().toISOString(),
+      mongoConnection: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+      environment: process.env.NODE_ENV || 'development'
+    };
+    
+    try {
+      res.status(200).json(healthcheck);
+    } catch (error) {
+      healthcheck.message = error instanceof Error ? error.message : 'Error occurred';
+      res.status(503).json(healthcheck);
+    }
+  });
+
   // Create Apollo Server
   const server = new ApolloServer<MyContext>({
     typeDefs,
@@ -68,6 +86,7 @@ async function startServer() {
   const PORT = process.env.PORT || 4000;
   await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
   console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+  console.log(`🩺 Health check available at http://localhost:${PORT}/health`);
 }
 
 // Handle unhandled promise rejections

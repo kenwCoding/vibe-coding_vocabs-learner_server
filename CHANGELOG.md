@@ -13,20 +13,29 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
-### 2024-03-24 10:30 AM
-- [Fix] Fixed TypeScript errors in src/index.ts:
+### 2024-03-24 11:45 AM
+#### ✨ Features
+- Added a health check endpoint at `/health` to monitor API status
+- Updated README with production API endpoint information
+
+### 2024-03-24 09:45 AM
+#### 🐛 Fixes
+- Fixed TypeScript errors in `src/index.ts`
   - Added proper type declarations for imported modules
-  - Created a declarations.d.ts file to declare module types
-  - Updated tsconfig.json to properly handle type declarations
-  - Added explanatory comment to @ts-ignore directive for expressMiddleware
-- [Update] Improved project structure by organizing type declarations
-- [Performance] Server now starts without TypeScript errors
+  - Created `declarations.d.ts` file for type declarations
+  - Updated `tsconfig.json` for type declaration handling
+  - Added explanatory comment for `@ts-ignore` related to `expressMiddleware`
+
+#### 🔧 Updates
+- Improved project structure by organizing type declarations
+
+#### ⚡️ Performance
+- Server now starts without TypeScript errors
 
 ### 2024-03-24 09:30 AM
-- [Fix] Resolved Mongoose warning about duplicate schema index on {"user":1} in UserProgress model:
-  - Removed the redundant `unique: true` property from the user field definition
-  - Kept the explicit index definition using `userProgressSchema.index()`
-- [Performance] Eliminated schema index duplication to improve database efficiency
+#### 🐛 Fixes
+- Fixed Mongoose warning about duplicate schema index in UserProgress model
+  - Removed redundant `unique: true` property and kept explicit index definition
 
 ### 2024-03-24 08:45 AM
 - [Fix] Fixed property name issues in userProgressResolvers.ts:
