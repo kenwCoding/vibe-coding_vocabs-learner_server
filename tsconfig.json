@@ -9,7 +9,12 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

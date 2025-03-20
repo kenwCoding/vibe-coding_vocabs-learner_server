@@ -13,6 +13,15 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
+### 2024-03-24 10:30 AM
+- [Fix] Fixed TypeScript errors in src/index.ts:
+  - Added proper type declarations for imported modules
+  - Created a declarations.d.ts file to declare module types
+  - Updated tsconfig.json to properly handle type declarations
+  - Added explanatory comment to @ts-ignore directive for expressMiddleware
+- [Update] Improved project structure by organizing type declarations
+- [Performance] Server now starts without TypeScript errors
+
 ### 2024-03-24 09:30 AM
 - [Fix] Resolved Mongoose warning about duplicate schema index on {"user":1} in UserProgress model:
   - Removed the redundant `unique: true` property from the user field definition

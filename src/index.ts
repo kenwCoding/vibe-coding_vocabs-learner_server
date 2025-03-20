@@ -48,6 +48,7 @@ async function startServer() {
     '/graphql',
     cors<cors.CorsRequest>(),
     express.json(),
+    // Use ts-ignore to bypass the type error with expressMiddleware
     // @ts-ignore: Express middleware compatibility issue
     expressMiddleware(server, {
       context: async ({ req }) => {
