@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vocabmaster-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/vocabmaster
+      - JWT_SECRET=your_jwt_secret_key_here
+      - PORT=4000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:6
+    container_name: vocabmaster-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    command: mongod --quiet
+    environment:
+      - MONGO_INITDB_DATABASE=vocabmaster
+
+volumes:
+  mongodb_data: 

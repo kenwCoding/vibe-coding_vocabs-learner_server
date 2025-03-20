@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: vocabmaster-api-dev
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongodb:27017/vocabmaster
+      - JWT_SECRET=development_jwt_secret
+      - PORT=4000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+    restart: unless-stopped
+    command: yarn dev
+
+  mongodb:
+    image: mongo:6
+    container_name: vocabmaster-mongodb-dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_dev:/data/db
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_DATABASE=vocabmaster
+
+volumes:
+  mongodb_data_dev: 

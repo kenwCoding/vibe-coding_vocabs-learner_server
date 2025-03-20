@@ -28,6 +28,8 @@ Experience the latest version of VocabMaster in action! The demo showcases the c
 - **Backend**:
   - GraphQL API
   - Apollo Server
+  - MongoDB for data storage
+  - Express.js web framework
 - **Styling**: TailwindCSS for responsive design
 - **AI Integration**: 
   - LangChain for building AI workflow components
@@ -38,6 +40,9 @@ Experience the latest version of VocabMaster in action! The demo showcases the c
 - **Development**:
   - TypeScript for type safety
   - Vite for fast development and bundling
+- **Deployment**:
+  - Docker for containerization
+  - Docker Compose for multi-container deployment
 
 ## System Architecture
 
@@ -66,7 +71,7 @@ graph TD
     end
     
     subgraph "Data Layer"
-        DB[(PostgreSQL Database)]
+        DB[(MongoDB Database)]
         CACHE[(Redis Cache)]
     end
     
@@ -107,6 +112,7 @@ graph TD
 
 - Node.js 18+ installed
 - Yarn or npm for package management
+- Docker and Docker Compose (for containerized deployment)
 
 ### Installation
 
@@ -128,7 +134,83 @@ npm run dev
 yarn dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Your application will be available at `http://localhost:4000/graphql`.
+
+## Docker Setup
+
+### Running with Docker Compose (Production)
+
+The easiest way to run the VocabMaster backend is with Docker Compose. This will start both the API server and MongoDB database in containers:
+
+1. Create a `.env` file based on the `.env.example` template:
+
+```bash
+cp .env.example .env
+```
+
+2. Modify the values in the `.env` file as needed, especially the `JWT_SECRET`.
+
+3. Start the application with Docker Compose:
+
+```bash
+docker-compose up -d
+```
+
+This will:
+- Build the API server image
+- Start a MongoDB container
+- Connect the API server to MongoDB
+- Expose the API on port 4000
+
+4. To stop the application:
+
+```bash
+docker-compose down
+```
+
+### Development with Docker
+
+For development with hot-reloading:
+
+1. Use the development Docker Compose configuration:
+
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+This will:
+- Mount your source files into the container
+- Start the application with nodemon for hot-reloading
+- Set NODE_ENV to development
+- Keep the console output visible for debugging
+
+2. Any changes you make to the source files will automatically restart the server.
+
+3. To stop the development environment:
+
+```bash
+docker-compose -f docker-compose.dev.yml down
+```
+
+### Building and Running the Docker Image Directly
+
+If you prefer to manage MongoDB separately, you can build and run just the API server container:
+
+1. Build the Docker image:
+
+```bash
+docker build -t vocabmaster-api .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 4000:4000 \
+  -e MONGODB_URI=mongodb://your-mongodb-host:27017/vocabmaster \
+  -e JWT_SECRET=your_jwt_secret_key_here \
+  -e PORT=4000 \
+  -d vocabmaster-api
+```
 
 ## Building for Production
 
@@ -142,9 +224,8 @@ yarn build
 
 ## Deployment
 
-This application is deployed using Vercel for the frontend. The backend services will be developed separately.
+The frontend application is deployed using Vercel. The backend can be deployed using Docker containers on platforms that support Docker deployments (AWS ECS, Google Cloud Run, etc.).
 
 ---
 
 Built with ❤️ by VocabMaster Team
-# vibe-coding_vocabs-learner_server

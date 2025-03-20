@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install dependencies first to leverage Docker caching
+COPY package.json yarn.lock ./
+
+# Install all dependencies including development ones
+RUN yarn install --frozen-lockfile
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose API port
+EXPOSE 4000
+
+# Set NODE_ENV
+ENV NODE_ENV=development
+
+# Command to run the application with nodemon for hot reloading
+CMD ["yarn", "dev"] 
