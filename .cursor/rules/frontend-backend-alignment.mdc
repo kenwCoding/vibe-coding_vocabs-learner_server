@@ -1,0 +1,133 @@
+---
+description: Rules for aligning backend development with frontend requirements
+globs: *
+---
+ # Frontend-Backend Alignment Rule
+
+## Purpose
+This rule ensures that backend development aligns with frontend requirements for the VocabMaster application. Follow these guidelines to maintain compatibility between the frontend and backend.
+
+## API Requirements
+
+### GraphQL Implementation
+The frontend expects a GraphQL API with Apollo Server. Ensure all resolvers implement these core features:
+
+1. **User Management**
+   - Authentication (login/register) with JWT
+   - User profile updates
+   - Preference management
+
+2. **Vocabulary Content**
+   - CRUD operations for vocabulary items
+   - CRUD operations for vocabulary lists
+   - Support for bilingual (English/Chinese) content
+
+3. **Test System**
+   - Support for multiple test types (multipleChoice, matching, fillInBlanks)
+   - Test creation, updating, and deletion
+   - Test attempt tracking and scoring
+   - Performance analytics
+
+## Data Model Compatibility
+
+Ensure your database schema and GraphQL types align with these frontend data models:
+
+### User Model
+```typescript
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  nativeLanguage: 'en' | 'zh';
+  preferences: {
+    darkMode: boolean;
+    [key: string]: any;
+  };
+}
+```
+
+### Vocabulary Models
+```typescript
+interface VocabItem {
+  id: string;
+  term: string;
+  definitionEn: string;
+  definitionZh: string;
+  exampleSentence: string;
+  partOfSpeech: string;
+  difficultyRating: 1 | 2 | 3 | 4 | 5;
+  tags: string[];
+}
+
+interface VocabList {
+  id: string;
+  title: string;
+  description: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  itemIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+### Test Models
+```typescript
+type TestType = 'multipleChoice' | 'matching' | 'fillInBlanks';
+
+interface Test {
+  id: string;
+  title: string;
+  description: string;
+  type: TestType;
+  questions: TestQuestion[]; // Union type of different question formats
+  settings: {
+    timeLimit?: number;
+    randomizeQuestions: boolean;
+    randomizeOptions: boolean;
+    showFeedbackAfterEachQuestion: boolean;
+  };
+  createdAt: string;
+}
+
+interface TestAttempt {
+  id: string;
+  testId: string;
+  userId: string;
+  startedAt: string;
+  completedAt?: string;
+  answers: {
+    questionId: string;
+    userAnswer: string | number;
+    isCorrect: boolean;
+    timeSpent: number;
+  }[];
+  score?: number;
+}
+```
+
+## Response Time Requirements
+- API responses should be delivered within 200ms
+- Authentication operations within 500ms
+- Test scoring and analytics within 1000ms
+
+## Error Handling
+- All API errors must include:
+  - HTTP status code
+  - Error code for frontend to identify error type
+  - User-friendly message (in both English and Chinese)
+  - Detailed developer message (when in development mode)
+
+## API Documentation
+- Document all GraphQL queries, mutations, and subscriptions
+- Include example requests and responses
+- Document authentication requirements for each endpoint
+
+## Testing Requirements
+- Unit tests for all resolvers and services
+- Integration tests for complete API flows
+- Test cases for error handling
+
+## Performance Considerations
+- Implement pagination for list queries
+- Support filtering and sorting options for vocabulary and test lists
+- Use caching where appropriate
