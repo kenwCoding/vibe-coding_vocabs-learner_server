@@ -13,6 +13,16 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
+### 2024-03-24 08:45 AM
+- [Fix] Fixed property name issues in userProgressResolvers.ts:
+  - Updated property names to match model definitions (proficiency → masteryLevel, reviewCount → correctAttempts)
+  - Fixed getUserMasteryStats resolver to correctly calculate statistics
+  - Updated parameters in updateVocabItemProgress mutation to use proper naming
+  - Fixed logStudySession mutation to work with correct parameters
+  - Added proper interface definitions at the top of the file
+- [Update] Updated server to start successfully with all resolvers matching schema definitions
+- [Performance] Improved server startup by addressing type errors
+
 ### 2024-03-24 08:15 AM
 - [Fix] Fixed missing GraphQL schema elements by adding missing mutations:
   - Added `deleteTestResult` mutation for managing test results
