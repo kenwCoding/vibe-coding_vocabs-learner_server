@@ -1,0 +1,11 @@
+---
+description: rule to follow for git related action
+globs: *
+---
+
+# Git Rules
+
+- always add [AI Agent] at the front of the commit message if you doing commit
+- always update the changelog file before doing any commit; if there is no changelog file, create one
+- always include the date and time in the changelog and use tags at the front of each items, e.g.: [Add],[Update],[Remove]
+- always update the changelog tags definition section when you created a new tag and with the explaination

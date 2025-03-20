@@ -15,4 +15,6 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ### 2024-03-21 03:55 PM
 - [Add] Created frontend-backend-alignment cursor rule to ensure backend development aligns with frontend requirements
+- [Add] Added git-commit-rule for standardizing commit practices
+- [Docs] Added PROJECT_PLANNING.md with project requirements and architecture
 - [Docs] Added initial CHANGELOG.md file to track project changes 
