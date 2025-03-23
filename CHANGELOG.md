@@ -13,6 +13,13 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
+### 2024-03-25 12:00 PM
+#### 🧰 Utilities
+- Removed unused level normalization test script to keep the codebase clean
+
+#### 🐛 Fixes
+- Explicitly fixed default level value in VocabList model schema from 'intermediate' to 'beginner'
+
 ### 2024-03-25 11:30 AM
 #### 🐛 Fixes
 - Fixed issue with VocabList level values being stored incorrectly
