@@ -42,6 +42,49 @@ export const vocabItemSchema = z.object({
 export const vocabListSchema = z.object({
   title: z.string().min(1).max(100),
   description: z.string().optional(),
+  level: z.preprocess(
+    // Preprocess to normalize the level value before validation
+    (val) => {
+      // Import the normalizeLevel function here to avoid circular dependencies
+      const normalizeLevel = (level: any): 'beginner' | 'intermediate' | 'advanced' => {
+        if (level === null || level === undefined || level === '') {
+          return 'beginner';
+        }
+        
+        try {
+          const levelStr = String(level).toLowerCase().trim();
+          
+          // Abbreviated forms
+          if (['b', 'beg'].includes(levelStr)) return 'beginner';
+          if (['i', 'int'].includes(levelStr)) return 'intermediate';
+          if (['a', 'adv'].includes(levelStr)) return 'advanced';
+          
+          // Numeric encodings
+          if (levelStr === '1') return 'beginner';
+          if (levelStr === '2') return 'intermediate';
+          if (levelStr === '3') return 'advanced';
+          
+          // Alternative terms
+          if (['easy', 'basic', 'entry'].includes(levelStr)) return 'beginner';
+          if (['medium', 'mid', 'moderate'].includes(levelStr)) return 'intermediate';
+          if (['hard', 'difficult', 'expert'].includes(levelStr)) return 'advanced';
+          
+          // Standard values
+          if (levelStr === 'beginner') return 'beginner';
+          if (levelStr === 'intermediate') return 'intermediate';
+          if (levelStr === 'advanced') return 'advanced';
+          
+          // Default
+          return 'beginner';
+        } catch (error) {
+          return 'beginner';
+        }
+      };
+      
+      return normalizeLevel(val);
+    },
+    z.enum(['beginner', 'intermediate', 'advanced'])
+  ).default('beginner'),
   isPublic: z.boolean().default(false),
   items: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),

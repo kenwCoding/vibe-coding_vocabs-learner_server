@@ -13,6 +13,17 @@ All notable changes to the VocabMaster backend project will be documented in thi
 
 ## Changes
 
+### 2024-03-25 11:30 AM
+#### 🐛 Fixes
+- Fixed issue with VocabList level values being stored incorrectly
+- Added enhanced level normalization to handle various input formats
+- Added robust debug logging to vocabListResolvers for troubleshooting level values
+
+#### 🧰 Utilities
+- Added `normalizeLevel` utility function to standardize level values (beginner/intermediate/advanced)
+- Created `fixLevels.ts` utility script to correct existing level values in the database
+- Created `run-fix-levels.sh` shell script for easy execution of the fix utility
+
 ### 2024-03-24 11:45 AM
 #### ✨ Features
 - Added a health check endpoint at `/health` to monitor API status

@@ -92,6 +92,9 @@ export const vocabListResolvers = {
         }
         
         try {
+          console.log('Creating vocabulary list with input:', JSON.stringify(input, null, 2));
+          console.log('Input level value:', input.level);
+          
           // Validate all item IDs exist if provided
           if (input.items && input.items.length > 0) {
             const itemCount = await VocabItem.countDocuments({
@@ -109,14 +112,22 @@ export const vocabListResolvers = {
           }
           
           // Create new vocab list
-          const vocabList = await VocabList.create({
+          const vocabListData = {
             ...input,
             itemIds: input.items || [],
             creator: context.user._id,
-          });
+          };
+          
+          console.log('Final data for creating vocabulary list:', JSON.stringify(vocabListData, null, 2));
+          console.log('Final level value before save:', vocabListData.level);
+          
+          const vocabList = await VocabList.create(vocabListData);
+          console.log('Created vocabulary list:', JSON.stringify(vocabList, null, 2));
+          console.log('Saved level value in database:', vocabList.level);
           
           return vocabList;
         } catch (error) {
+          console.error('Error creating vocabulary list:', error);
           if (error instanceof GraphQLError) {
             throw error;
           }
