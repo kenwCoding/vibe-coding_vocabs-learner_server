@@ -33,7 +33,7 @@ const vocabListSchema = new Schema<IVocabList>(
       type: String,
       enum: ['beginner', 'intermediate', 'advanced'],
       required: [true, 'Level is required'],
-      default: 'intermediate',
+      default: 'beginner',
     },
     itemIds: [
       {
